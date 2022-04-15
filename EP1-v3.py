@@ -7,6 +7,8 @@
 
 import numpy as np
 
+#christian eh gay
+
 def main():
     opcao = int(input("1- Usar valores pre-cadastrados de matriz tridiagonal \n2- Inserir seus proprios valores \n3- Gerar coeficientes tridiagonais\n"))
     if(opcao == 1):#caso em que o usuario escolhe a matriz pre-cadastrada
