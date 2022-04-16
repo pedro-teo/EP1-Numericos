@@ -139,20 +139,20 @@ def decomposicaoLU(n, diagA, diagB, diagC,vetU,vetL):
     for i in range (1,n):
         vetL[i] = (diagA[i-1])/vetU[i-1]
         vetU[i] = diagB[i] - vetL[i]*diagC[i-1]
-    print("L = ",vetL)
-    print("U = ",vetU)
+    #print("L = ",vetL)
+    #print("U = ",vetU)
 
 def resolveSistema(n, diagC, d, vetU, vetL, vetX, vetY):
     # sim sim, matematica
     vetY[0] = d[0]
     for i in range(1, n):
         vetY[i] = d[i] - vetL[i]*vetY[i-1]
-    print("Y = ",vetY)
+    #print("Y = ",vetY)
     # quase la
     vetX[n-1] = vetY[n-1]/vetU[n-1]
     for i in range(n-2, -1, -1): #confia, isso daqui eh um jogo de fe
         vetX[i] = (vetY[i] - (diagC[i]*vetX[i+1]))/vetU[i]
-    print("X = ",vetX)
+    #print("X = ",vetX)
     # finalmente
     print("Resultado encontrado:\n[", end='')
     for i in range(0, n):
@@ -178,22 +178,22 @@ def gerarMatrizTridiagonal(n,diagA,diagB,diagC,d):
     for i in range(0, n-1):
        diagA[i] = (2*(i+1) - 1)/(4*(i+1))
 
-    print("A = ", diagA)
+    #print("A = ", diagA)
 
     #gerando o vetor da diagonal superior
     for i in range(0, n-1):
         diagC[i] = 1 - diagA[i]
 
-    print("C = ", diagC)
+    #print("C = ", diagC)
     #gerando o vetor da diagonal principal
     for i in range(0, n):
         diagB[i] = 2
 
-    print("B = ", diagB)
+    #print("B = ", diagB)
     #gerando o vetor de respostas do sistema linear
     for i in range(0,n):
         d[i] = np.cos((2*np.pi*(i+1)*(i+1))/(n*n))
-    print("d = ", d)
+    #print("d = ", d)
 
 
 #falando pro compilador ir pra main
