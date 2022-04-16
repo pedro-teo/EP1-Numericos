@@ -1,0 +1,27 @@
+###     MAP3121 - Calculo Numerico - Escola Politecnica                  ###
+###     Tarefa 1 - Decomposicao LU para Matrizes Tridiagonais            ###
+
+###     Alunos deste grupo:                                              ###       
+###     Fabio Akira Yonamine   - NUSP 11805398                           ###
+###     Pedro H. Teodoro Silva - NUSP 11805314                           ###
+
+Instrucao no PDF: "Incluir, obrigatoriamente, um arquivo LEIAME.txt com instrucoes de compilacao e execucao, 
+indicando versao de interpretador/compilador necessario."
+
+Prezados docentes, 
+
+Tal como instruído no PDF de instrucoes deste primeiro Exercicio-Programa, 
+fizemos uso das seguintes ferramentas, que devem estar corretamente instaladas
+no computador para compilacao e uso:
+
+- Python 3.7 para redigir o algoritmo, em geral
+- Biblioteca Numpy, para calculos basicos com matrizes
+
+Para rodar este codigo e de fato testa-lo, um modo intuitivo envolve utilizar o
+programa Visual Studio Code (tambem conhecido como VSCode), disponivel para todas
+as plataformas, e abrir o arquivo XXXXX.py por meio deste. No proprio programa, 
+quando se abre um codigo em linguagem Python, ha um icone "Play", que roda o programa
+aberto.
+
+OBS1: Excluir a instrucao do PDF na linha 8, que colei para consulta aqui
+OBS2: Editar o nome final do arquivo .py, na linha 22.
