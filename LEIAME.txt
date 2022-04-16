@@ -10,7 +10,7 @@ indicando versao de interpretador/compilador necessario."
 
 Prezados docentes, 
 
-Tal como instruído no PDF de instrucoes deste primeiro Exercicio-Programa, 
+Tal como instruido no PDF de instrucoes deste primeiro Exercicio-Programa, 
 fizemos uso das seguintes ferramentas, que devem estar corretamente instaladas
 no computador para compilacao e uso:
 
@@ -20,7 +20,7 @@ no computador para compilacao e uso:
 Para rodar este codigo e de fato testa-lo, um modo intuitivo envolve utilizar o
 programa Visual Studio Code (tambem conhecido como VSCode), disponivel para todas
 as plataformas, e abrir o arquivo XXXXX.py por meio deste. No proprio programa, 
-quando se abre um codigo em linguagem Python, ha um icone "Play", que roda o programa
+quando se abre um codigo em linguagem Python, ha um icone "Play", que roda o codigo
 aberto.
 
 OBS1: Excluir a instrucao do PDF na linha 8, que colei para consulta aqui
