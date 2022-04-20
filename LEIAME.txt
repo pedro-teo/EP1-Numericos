@@ -20,8 +20,8 @@ no computador para compilacao e uso:
 Para rodar este codigo e de fato testa-lo, um modo intuitivo envolve utilizar o
 programa Visual Studio Code (tambem conhecido como VSCode), disponivel para todas
 as plataformas, e abrir o arquivo XXXXX.py por meio deste. No proprio programa, 
-quando se abre um codigo em linguagem Python, ha um icone "Play", que roda o codigo
-aberto.
+quando se abre um codigo em linguagem Python, ha um icone "Play" no canto superior
+direito, que roda o codigo aberto.
 
 OBS1: Excluir a instrucao do PDF na linha 8, que colei para consulta aqui
 OBS2: Editar o nome final do arquivo .py, na linha 22.
