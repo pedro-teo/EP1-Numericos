@@ -177,7 +177,7 @@ def gerarMatrizTridiagonal(n,diagA,diagB,diagC,d):
     #gerando o vetor da diagonal inferior
     for i in range(0, n-1):
        diagA[i] = (2*(i+1) - 1)/(4*(i+1))
-
+    diagA[n] = ((2*n)-1)/(2*n)
     #print("A = ", diagA)
 
     #gerando o vetor da diagonal superior
