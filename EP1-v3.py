@@ -10,11 +10,11 @@ import numpy as np
 
 def main():
     opcao = int(input("1- Usar valores pre-cadastrados de matriz tridiagonal \n2- Inserir seus proprios valores \n3- Gerar coeficientes tridiagonais\n"))
-    if(opcao == 1):#caso em que o usuario escolhe a matriz pre-cadastrada
-        #tamanho da matriz
+    if(opcao == 1):## CASO 1: usuario escolhe a matriz pre-cadastrada ##
+        ## Tamanho n da matriz ##
         n = 5
 
-        #zerando os vetores/matrizes
+        ## Gera os vetores/matrizes com todos as casas iguais a zero ##
         A = np.zeros((n,n))
         d = np.zeros((n,1))
         diagC = np.zeros(n)
@@ -29,39 +29,39 @@ def main():
         diagC[3] = 2
         diagC[4] = 0
 
-        #diagonal principal
+        ## Diagonal principal ##
         diagB[0] = -1
         diagB[1] = 5
         diagB[2] = -2
         diagB[3] = 6
         diagB[4] = 1
         
-        #diagoal inferior
+        ## Diagoal inferior ##
         diagA[0] = 4
         diagA[1] = 1
         diagA[2] = 4
         diagA[3] = 9
         diagA[4] = 0       
 
-        #resultado do sistema
+        ## Resultado do sistema ##
         d[0] = 10
         d[1] = -7
         d[2] = -5
         d[3] = 4
         d[4] = 2
 
-    elif(opcao == 2):#caso em que o usuario da input na matriz
-        #tamanho da matriz
+    elif(opcao == 2): ## CASO 2: usuario informa a matriz ##
+        ## Usuario define tamanho n da matriz ##
         n = int(input("Qual o tamanho desejado para a matriz quadrada?  "))
 
-        #zerando os vetores/matrizes
+        ## Gera os vetores/matrizes com todos as casas iguais a zero ##
         A = np.zeros((n,n))
         d = np.zeros((n,1))
         diagA = np.zeros(n)
         diagB = np.zeros(n)
         diagC = np.zeros(n)
 
-        #input da matriz A
+        ## Input da matriz A ##
         print("Preencheremos a matriz A agora...")
         for l in range(0, n):
             print("Linha [", l, "]    ",sep='')
@@ -71,8 +71,8 @@ def main():
             print()
 
 
-        #checa se a matriz eh tridiagonal (teoricamente so vamos mexer com esse tipo de matriz)
-        #caso nao seja tridiagonal da a opcao de dar input novamente
+        ## Checa se a matriz eh tridiagonal (teoricamente so vamos mexer com esse tipo de matriz) ##
+        ## OBS: Caso nao seja tridiagonal, da a opcao de dar input novamente                      ##
         while(ehMatrizTridiagonal(A, n) == False):
             print("Aviso: a matriz 'A' preenchida nao eh tridiagonal.")
             print("Deseja preencher a matriz novamente? y/n")
@@ -196,6 +196,6 @@ def gerarMatrizTridiagonal(n,diagA,diagB,diagC,d):
     #print("d = ", d)
 
 
-#falando pro compilador ir pra main
+## Comanda o programa a voltar para a funcao main ##
 if __name__ == '__main__':
     main()
