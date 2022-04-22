@@ -133,33 +133,39 @@ def main():
     resolveSistema(n, diagC, d, vetU, vetL, vetX, vetY)
 
 
+def printBonito(letra, vetor):
+    print(letra, " = [", end='', sep='')
+    for i in range(0, len(vetor)):
+        print("%.8f" % vetor[i], end='')
+        if (i < len(vetor)-1):
+            print("; ", end='')
+    print("]")
+
+
 def decomposicaoLU(n, diagA, diagB, diagC,vetU,vetL):
     #pra mim oq vem abaixo eh magia negra e eu n sei como funciona, so sei que funciona
     vetU[0] = diagB[0]
     for i in range (1,n):
         vetL[i] = (diagA[i-1])/vetU[i-1]
         vetU[i] = diagB[i] - vetL[i]*diagC[i-1]
-    #print("L = ",vetL)
-    #print("U = ",vetU)
+    
+    printBonito('L', vetL)
+    printBonito('U' ,vetU)
+    print("")
 
 def resolveSistema(n, diagC, d, vetU, vetL, vetX, vetY):
     # sim sim, matematica
     vetY[0] = d[0]
     for i in range(1, n):
         vetY[i] = d[i] - vetL[i]*vetY[i-1]
-    #print("Y = ",vetY)
+    printBonito('Y', vetY)
     # quase la
     vetX[n-1] = vetY[n-1]/vetU[n-1]
     for i in range(n-2, -1, -1): #confia, isso daqui eh um jogo de fe
         vetX[i] = (vetY[i] - (diagC[i]*vetX[i+1]))/vetU[i]
-    #print("X = ",vetX)
+    
     # finalmente
-    print("Resultado encontrado:\n[", end='')
-    for i in range(0, n):
-        print("%.8f" % vetX[i], end='')
-        if (i < n-1):
-            print("; ", end='')
-    print("]")
+    printBonito('X', vetX)
 
 
 #check se a matriz eh tridiagonal ou nao. caso seja retorna verdadeiro pq da pra vetorizar a matriz A
@@ -178,22 +184,24 @@ def gerarMatrizTridiagonal(n,diagA,diagB,diagC,d):
     for i in range(0, n-1):
        diagA[i] = (2*(i+1) - 1)/(4*(i+1))
     diagA[n-1] = ((2*n)-1)/(2*n)
-    print("A = ", diagA)
 
     #gerando o vetor da diagonal superior
     for i in range(0, n): ## ACHO QUE AQUI EH n, MAS TAVA n-1
         diagC[i] = 1 - diagA[i]
 
-    #print("C = ", diagC)
     #gerando o vetor da diagonal principal
     for i in range(0, n):
         diagB[i] = 2
 
-    #print("B = ", diagB)
     #gerando o vetor de respostas do sistema linear
     for i in range(0,n):
         d[i] = np.cos((2*np.pi*(i+1)*(i+1))/(n*n))
-    #print("d = ", d)
+    
+    printBonito('A', diagA)
+    printBonito('B', diagB)
+    printBonito("C", diagC)
+    printBonito("D", d)
+    print("")
 
 
 ## Comanda o programa a voltar para a funcao main ##
