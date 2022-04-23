@@ -130,7 +130,7 @@ def main():
     #resolvendo o sistema
     vetX = np.zeros(n)
     vetY = np.zeros(n)
-    resolveSistema(n, diagC, d, vetU, vetL, vetX, vetY)
+    resolveTridiagonal(n, diagC, d, vetU, vetL, vetX, vetY)
 
 
 def decomposicaoLU(n, diagA, diagB, diagC,vetU,vetL):
@@ -142,7 +142,7 @@ def decomposicaoLU(n, diagA, diagB, diagC,vetU,vetL):
     #print("L = ",vetL)
     #print("U = ",vetU)
 
-def resolveSistema(n, diagC, d, vetU, vetL, vetX, vetY):
+def resolveTridiagonal(n, diagC, d, vetU, vetL, vetX, vetY):
     # sim sim, matematica
     vetY[0] = d[0]
     for i in range(1, n):
