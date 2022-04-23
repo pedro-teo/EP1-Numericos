@@ -37,11 +37,11 @@ def main():
         diagB[4] = 1
         
         ## Diagoal inferior ##
-        diagA[0] = 4
-        diagA[1] = 1
-        diagA[2] = 4
-        diagA[3] = 9
-        diagA[4] = 0       
+        diagA[0] = 0
+        diagA[1] = 4
+        diagA[2] = 1
+        diagA[3] = 4
+        diagA[4] = 9       
 
         ## Resultado do sistema ##
         d[0] = 10
