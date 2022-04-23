@@ -129,8 +129,7 @@ def main():
 
     #resolvendo o sistema
     vetX = np.zeros(n)
-    vetY = np.zeros(n)
-    resolveTridiagonal(n, diagC, d, vetU, vetL, vetX, vetY)
+    vetX = resolveTridiagonal(n, diagA, diagB, diagC, d)
 
 
 def printBonito(letra, vetor):
@@ -153,8 +152,15 @@ def decomposicaoLU(n, diagA, diagB, diagC,vetU,vetL):
     printBonito('U' ,vetU)
     print("")
 
-def resolveTridiagonal(n, diagC, d, vetU, vetL, vetX, vetY):
+def resolveTridiagonal(n, diagA, diagB, diagC, d):
     # sim sim, matematica
+    vetU = np.zeros(n)
+    vetL = np.zeros(n)
+    decomposicaoLU(n, diagA, diagB, diagC, vetU, vetL)
+
+    vetX = np.zeros(n)
+    vetY = np.zeros(n)
+
     vetY[0] = d[0]
     for i in range(1, n):
         vetY[i] = d[i] - vetL[i]*vetY[i-1]
@@ -166,6 +172,7 @@ def resolveTridiagonal(n, diagC, d, vetU, vetL, vetX, vetY):
     
     # finalmente
     printBonito('X', vetX)
+    return vetX
 
 
 #check se a matriz eh tridiagonal ou nao. caso seja retorna verdadeiro pq da pra vetorizar a matriz A
