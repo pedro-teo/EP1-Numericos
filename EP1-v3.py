@@ -206,15 +206,8 @@ def resolveTridiagonalCiclica(n, diagA, diagB, diagC, d):
     yTil = resolveTridiagonal(n-1, diagAT, diagBT, diagCT, dTil)
     zTil = resolveTridiagonal(n-1, diagAT, diagBT, diagCT, v)
 
-    ##ate aqui, acho que ta check
-
     printBonito('yTil', yTil)
     printBonito('zTil', zTil)
-
-    #print(yTil[0])
-    #print(yTil[n-2])
-    #print(zTil[0])
-    #print(zTil[n-2])
     
     ## Encontra o vetor x, finalmente ##
     xn = ( d[n-1] - (diagC[n-1]*yTil[0]) - (diagA[n-1]*yTil[n-2]) ) / ( diagB[n-1] - (diagC[n-1]*zTil[0]) - (diagA[n-1]*zTil[n-2]) )
@@ -222,8 +215,6 @@ def resolveTridiagonalCiclica(n, diagA, diagB, diagC, d):
     x = np.zeros(n)
     x[0:n-1] = xTil
     x[n-1] = xn
-
-    print(xn)
     
     return x
 
