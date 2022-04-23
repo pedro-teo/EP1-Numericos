@@ -132,6 +132,8 @@ def main():
     vetX = resolveTridiagonal(n, diagA, diagB, diagC, d)
 
     respostaFinalCiclico = resolveTridiagonalCiclica(n, diagA, diagB, diagC, d)
+    printBonito('resposta', respostaFinalCiclico)
+
 
 
 def printBonito(letra, vetor):
@@ -201,12 +203,15 @@ def resolveTridiagonalCiclica(n, diagA, diagB, diagC, d):
     ## os vetores yTil e zTil.                                     ##
     yTil = resolveTridiagonal(n-1, diagAT, diagBT, diagCT, dTil)
     zTil = resolveTridiagonal(n-1, diagAT, diagBT, diagCT, v)
+
+    ##ate aqui, acho que ta check
     
     ## Encontra o vetor x, finalmente ##
     xn = ( d[n-1] - (diagC[n-1]*yTil[0]) - (diagA[n-1]*yTil[n-2]) ) / ( diagB[n-1] - (diagC[n-1]*zTil[0]) - (diagA[n-1]*zTil[n-2]) )
     xTil = yTil - (xn * zTil)
     x = np.zeros(n)
-    x[1:n] = xTil
+    x[0:n-1] = xTil
+    x[n-1] = xn
     
     return x
 
