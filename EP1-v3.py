@@ -149,7 +149,7 @@ def decomposicaoLU(n, diagA, diagB, diagC,vetU,vetL):
     #pra mim oq vem abaixo eh magia negra e eu n sei como funciona, so sei que funciona
     vetU[0] = diagB[0]
     for i in range (1,n):
-        vetL[i] = (diagA[i-1])/vetU[i-1]
+        vetL[i] = (diagA[i])/vetU[i-1] #aqui tava bugado os indices, arrumei
         vetU[i] = diagB[i] - vetL[i]*diagC[i-1]
     
     printBonito('L', vetL)
@@ -181,10 +181,12 @@ def resolveTridiagonal(n, diagA, diagB, diagC, d):
 def resolveTridiagonalCiclica(n, diagA, diagB, diagC, d):
     ## Geracao dos vetores a, b e c da matriz T ##
     diagAT = np.zeros(n-1)
-    diagAT[0] = 0 ## pegadinha do malandro, tava errando aqui
     diagAT[1:n-1] = diagA[1:n-1]
+
     diagBT = diagB[0:n-1]
-    diagCT = diagC[0:n-2]
+
+    diagCT = np.zeros(n-1)
+    diagCT[0:n-2] = diagC[0:n-2]
 
     printBonito('At', diagAT)
     printBonito('Bt', diagBT)
@@ -205,6 +207,14 @@ def resolveTridiagonalCiclica(n, diagA, diagB, diagC, d):
     zTil = resolveTridiagonal(n-1, diagAT, diagBT, diagCT, v)
 
     ##ate aqui, acho que ta check
+
+    printBonito('yTil', yTil)
+    printBonito('zTil', zTil)
+
+    #print(yTil[0])
+    #print(yTil[n-2])
+    #print(zTil[0])
+    #print(zTil[n-2])
     
     ## Encontra o vetor x, finalmente ##
     xn = ( d[n-1] - (diagC[n-1]*yTil[0]) - (diagA[n-1]*yTil[n-2]) ) / ( diagB[n-1] - (diagC[n-1]*zTil[0]) - (diagA[n-1]*zTil[n-2]) )
@@ -212,6 +222,8 @@ def resolveTridiagonalCiclica(n, diagA, diagB, diagC, d):
     x = np.zeros(n)
     x[0:n-1] = xTil
     x[n-1] = xn
+
+    print(xn)
     
     return x
 
