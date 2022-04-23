@@ -131,6 +131,8 @@ def main():
     vetX = np.zeros(n)
     vetX = resolveTridiagonal(n, diagA, diagB, diagC, d)
 
+    respostaFinalCiclico = resolveTridiagonalCiclica(n, diagA, diagB, diagC, d)
+
 
 def printBonito(letra, vetor):
     print(letra, " = [", end='', sep='')
@@ -174,6 +176,39 @@ def resolveTridiagonal(n, diagA, diagB, diagC, d):
     printBonito('X', vetX)
     return vetX
 
+def resolveTridiagonalCiclica(n, diagA, diagB, diagC, d):
+    ## Geracao dos vetores a, b e c da matriz T ##
+    diagAT = np.zeros(n-1)
+    diagAT[0] = 0 ## pegadinha do malandro, tava errando aqui
+    diagAT[1:n-1] = diagA[1:n-1]
+    diagBT = diagB[0:n-1]
+    diagCT = diagC[0:n-2]
+
+    printBonito('At', diagAT)
+    printBonito('Bt', diagBT)
+    printBonito('Ct', diagCT)
+
+    ## Geracao dos vetores dTil e v ##
+    dTil = d[0:n-1]
+    v = np.zeros(n-1)
+    v[0] = diagA[0]
+    v[n-2] = diagC[n-2]
+
+    printBonito('Dtil', dTil)
+    printBonito('v', v)
+
+    ## Resolve os sistemas T.yTil = dTil e T.zTil = v, encontrando ##
+    ## os vetores yTil e zTil.                                     ##
+    yTil = resolveTridiagonal(n-1, diagAT, diagBT, diagCT, dTil)
+    zTil = resolveTridiagonal(n-1, diagAT, diagBT, diagCT, v)
+    
+    ## Encontra o vetor x, finalmente ##
+    xn = ( d[n-1] - (diagC[n-1]*yTil[0]) - (diagA[n-1]*yTil[n-2]) ) / ( diagB[n-1] - (diagC[n-1]*zTil[0]) - (diagA[n-1]*zTil[n-2]) )
+    xTil = yTil - (xn * zTil)
+    x = np.zeros(n)
+    x[1:n] = xTil
+    
+    return x
 
 #check se a matriz eh tridiagonal ou nao. caso seja retorna verdadeiro pq da pra vetorizar a matriz A
 def ehMatrizTridiagonal(A, n):
