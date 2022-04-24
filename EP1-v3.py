@@ -15,14 +15,13 @@ def main():
         n = 5
 
         ## Gera os vetores/matrizes com todos as casas iguais a zero ##
-        A = np.zeros((n,n))
-        d = np.zeros((n,1))
+        d = np.zeros(n)
         diagC = np.zeros(n)
         diagA = np.zeros(n)
         diagB = np.zeros(n)
 
-        #aqui tinha uma matriz convencional, troquei pro modo de vetores q ele pede no enunciado
-        #diagonal superior
+        ## aqui tinha uma matriz convencional, troquei pro modo de vetores q ele pede no enunciado ##
+        ## diagonal superior ##
         diagC[0] = 3
         diagC[1] = 2
         diagC[2] = -1
@@ -37,11 +36,11 @@ def main():
         diagB[4] = 1
         
         ## Diagoal inferior ##
-        diagA[0] = 4
-        diagA[1] = 1
-        diagA[2] = 4
-        diagA[3] = 9
-        diagA[4] = 0       
+        diagA[0] = 0
+        diagA[1] = 4
+        diagA[2] = 1
+        diagA[3] = 4
+        diagA[4] = 9       
 
         ## Resultado do sistema ##
         d[0] = 10
@@ -52,71 +51,60 @@ def main():
 
     elif(opcao == 2): ## CASO 2: usuario informa a matriz ##
         ## Usuario define tamanho n da matriz ##
+        ciclica = int(input("A matriz tridiagonal a ser digitada é ciclica? 0- NAO | 1- SIM    "))
         n = int(input("Qual o tamanho desejado para a matriz quadrada?  "))
 
         ## Gera os vetores/matrizes com todos as casas iguais a zero ##
-        A = np.zeros((n,n))
-        d = np.zeros((n,1))
+        d = np.zeros(n)
         diagA = np.zeros(n)
         diagB = np.zeros(n)
         diagC = np.zeros(n)
 
         ## Input da matriz A ##
-        print("Preencheremos a matriz A agora...")
-        for l in range(0, n):
-            print("Linha [", l, "]    ",sep='')
-            for c in range(0, n):
-                print("Coluna [", c, "]   ", end ='', sep='')
-                A[l][c] = float(input())
-            print()
+        ## aqui eu deixei os indices no print como sendo i+1 pra ficar igual o padrao que ##
+        ## eles usam no pdf. mas os indices de input mesmo estao de acordo com a logica.  ##
+        print("Preencheremos a matriz A agora:")
 
-
-        ## Checa se a matriz eh tridiagonal (teoricamente so vamos mexer com esse tipo de matriz) ##
-        ## OBS: Caso nao seja tridiagonal, da a opcao de dar input novamente                      ##
-        while(ehMatrizTridiagonal(A, n) == False):
-            print("Aviso: a matriz 'A' preenchida nao eh tridiagonal.")
-            print("Deseja preencher a matriz novamente? y/n")
-            resp = input()
-            if(resp == "y"):
-                for l in range(0, n):
-                    print("Linha ", l, "    ")
-                    for c in range(0, n):
-                        print("Coluna[", c, "]   ", end = '', sep='')
-                        A[l][c] = int(input())
-                    print()
-            if(resp == "n"):
-                break
-        
-        #colocando a matriz grande em vetores pra facilitar umas contas la na frente
-        if (ehMatrizTridiagonal(A, n) == True):
-            #pegando os valores da diagonal superior
+        print("Diagonal Superior:")
+        if (ciclica == 0):
             for i in range(0, n-1):
-                diagC[i] = A[i][i+1]
-            
-            #pegando os valores da diagonal principal
-            for i in range(0,n):
-                diagB[i] = A[i][i]
+                print("c[", i+1, "]:  ", sep='',end='')
+                diagC[i] = input()
+        elif(ciclica == 1):
+            for i in range(0, n):
+                print("c[", i+1, "]:  ", sep='',end='')
+                diagC[i] = input()
+        
+        print("Diagonal Principal:")
+        for i in range(0, n):
+            print("b[", i+1, "]:  ", sep='',end='')
+            diagB[i] = input()
+        
+        print("Diagonal Inferior:")
+        if (ciclica == 0):
+            for i in range(1, n):
+                print("a[", i+1, "]:  ", sep='',end='')
+                diagA[i] = input()
+        elif(ciclica == 1):
+            for i in range(0, n):
+                print("a[", i+1, "]:  ", sep='',end='')
+                diagA[i] = input()              
 
-            #pegando os valores da diagonal infeior
-            for i in range(0,n-1):
-                diagA[i] = A[i+1][i]
-                
-
-        #input da matriz resultado
-        print("Preencha os valores da matriz b agora...")
+        ## input da matriz resultado ##
+        print("Preencha os valores da matriz 'b' agora:")
         for l in range(0, n):
-            print("Linha[", l, "]    ", end='')
+            print("d[", l+1, "]:  ", end='', sep ='')
             d[l] = int(input())
         
+
     else:#caso em que o usuario escolhe que o programa gere a matriz e o resultado
         n = int(input("Qual o tamanho desejado para a matriz quadrada? "))
         
         #zerando os vetores/arrays
-        A = np.zeros((n,n))
-        diagA = np.zeros((n))
-        diagC = np.zeros((n))
-        diagB = np.zeros((n))
-        d = np.zeros((n))
+        diagA = np.zeros(n)
+        diagC = np.zeros(n)
+        diagB = np.zeros(n)
+        d = np.zeros(n)
 
         #gerando matriz com coeficientes baseados em formulas dadas pelo enunciado
         gerarMatrizTridiagonal(n,diagA,diagB,diagC,d)
@@ -127,12 +115,23 @@ def main():
     vetL = np.zeros(n)
     decomposicaoLU(n, diagA, diagB, diagC, vetU, vetL)
 
-    #resolvendo o sistema
-    vetX = np.zeros(n)
-    vetX = resolveTridiagonal(n, diagA, diagB, diagC, d)
+    print("Aqui estão as diagonais da matriz A:")
+    printBonito('       c', diagC)
+    printBonito('       b', diagB)
+    printBonito('       a', diagA)
+    print()
 
-    respostaFinalCiclico = resolveTridiagonalCiclica(n, diagA, diagB, diagC, d)
-    printBonito('resposta', respostaFinalCiclico)
+    print("Aqui está o resultado do sistema linear:")
+    printBonito('       d', d)
+    print()
+
+    print("Aqui estão os vetores resultados da decomposição LU:")
+    printBonito('       L', vetL)
+    printBonito('       U', vetU)
+    print()
+
+    print("Aqui está o resultado final:")
+    printBonito('       x', resolveTridiagonalCiclica(n, diagA, diagB, diagC, d))
 
 
 
@@ -145,16 +144,15 @@ def printBonito(letra, vetor):
     print("]")
 
 
+
 def decomposicaoLU(n, diagA, diagB, diagC,vetU,vetL):
     #pra mim oq vem abaixo eh magia negra e eu n sei como funciona, so sei que funciona
     vetU[0] = diagB[0]
     for i in range (1,n):
-        vetL[i] = (diagA[i])/vetU[i-1] #aqui tava bugado os indices, arrumei
+        vetL[i] = (diagA[i])/vetU[i-1]
         vetU[i] = diagB[i] - vetL[i]*diagC[i-1]
-    
-    printBonito('L', vetL)
-    printBonito('U' ,vetU)
-    print("")
+
+
 
 def resolveTridiagonal(n, diagA, diagB, diagC, d):
     # sim sim, matematica
@@ -168,15 +166,17 @@ def resolveTridiagonal(n, diagA, diagB, diagC, d):
     vetY[0] = d[0]
     for i in range(1, n):
         vetY[i] = d[i] - vetL[i]*vetY[i-1]
-    printBonito('Y', vetY)
+    #printBonito('Y', vetY)
     # quase la
     vetX[n-1] = vetY[n-1]/vetU[n-1]
     for i in range(n-2, -1, -1): #confia, isso daqui eh um jogo de fe
         vetX[i] = (vetY[i] - (diagC[i]*vetX[i+1]))/vetU[i]
     
     # finalmente
-    printBonito('X', vetX)
+    #printBonito('X', vetX)
     return vetX
+
+
 
 def resolveTridiagonalCiclica(n, diagA, diagB, diagC, d):
     ## Geracao dos vetores a, b e c da matriz T ##
@@ -188,9 +188,9 @@ def resolveTridiagonalCiclica(n, diagA, diagB, diagC, d):
     diagCT = np.zeros(n-1)
     diagCT[0:n-2] = diagC[0:n-2]
 
-    printBonito('At', diagAT)
-    printBonito('Bt', diagBT)
-    printBonito('Ct', diagCT)
+    #printBonito('At', diagAT)
+    #printBonito('Bt', diagBT)
+    #printBonito('Ct', diagCT)
 
     ## Geracao dos vetores dTil e v ##
     dTil = d[0:n-1]
@@ -198,16 +198,16 @@ def resolveTridiagonalCiclica(n, diagA, diagB, diagC, d):
     v[0] = diagA[0]
     v[n-2] = diagC[n-2]
 
-    printBonito('Dtil', dTil)
-    printBonito('v', v)
+    #printBonito('~D', dTil)
+    #printBonito('v', v)
 
     ## Resolve os sistemas T.yTil = dTil e T.zTil = v, encontrando ##
     ## os vetores yTil e zTil.                                     ##
     yTil = resolveTridiagonal(n-1, diagAT, diagBT, diagCT, dTil)
     zTil = resolveTridiagonal(n-1, diagAT, diagBT, diagCT, v)
 
-    printBonito('yTil', yTil)
-    printBonito('zTil', zTil)
+    #printBonito('~y', yTil)
+    #printBonito('~z', zTil)
     
     ## Encontra o vetor x, finalmente ##
     xn = ( d[n-1] - (diagC[n-1]*yTil[0]) - (diagA[n-1]*yTil[n-2]) ) / ( diagB[n-1] - (diagC[n-1]*zTil[0]) - (diagA[n-1]*zTil[n-2]) )
@@ -218,14 +218,6 @@ def resolveTridiagonalCiclica(n, diagA, diagB, diagC, d):
     
     return x
 
-#check se a matriz eh tridiagonal ou nao. caso seja retorna verdadeiro pq da pra vetorizar a matriz A
-def ehMatrizTridiagonal(A, n):
-    for i in range(0, n):
-        for j in range(0, n):
-            #se |i-j|>1 significa que estamos analisando uma casa de A fora das 3 diagonais, e se estamos, essa casa tem que ser == 0
-            if(np.abs(i-j) > 1 and A[i][j] != 0):
-                return False
-    return True
 
 
 #o enunciado da essa opcao pra gerar casos pra podermos testar se o programa funciona
@@ -236,22 +228,15 @@ def gerarMatrizTridiagonal(n,diagA,diagB,diagC,d):
     diagA[n-1] = ((2*n)-1)/(2*n)
 
     #gerando o vetor da diagonal superior
-    for i in range(0, n): ## ACHO QUE AQUI EH n, MAS TAVA n-1
-        diagC[i] = 1 - diagA[i]
+    diagC[0:n] = 1 - diagA[0:n]
 
     #gerando o vetor da diagonal principal
-    for i in range(0, n):
-        diagB[i] = 2
+    diagB[0:n] = 2
 
     #gerando o vetor de respostas do sistema linear
     for i in range(0,n):
         d[i] = np.cos((2*np.pi*(i+1)*(i+1))/(n*n))
-    
-    printBonito('A', diagA)
-    printBonito('B', diagB)
-    printBonito("C", diagC)
-    printBonito("D", d)
-    print("")
+
 
 
 ## Comanda o programa a voltar para a funcao main ##
