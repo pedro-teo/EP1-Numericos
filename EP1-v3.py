@@ -49,6 +49,20 @@ def main():
         d[3] = 4
         d[4] = 2
 
+        ## Gera a matriz tridiagonal A completa com os coeficientes, 
+        ## para usar o algoritmo do comeco do PDF
+        A = np.zeros((n,n))
+        #A[0][n-1] = diagA[0]
+        #A[n-1][0] = diagC[n-1]
+        for i in range (0,n-1):
+            A[i][i]   = diagB[i]
+            A[i+1][i] = diagA[i+1]
+            A[i][i+1] = diagC[i]
+        A[n-1][n-1] = diagB[n-1]
+        ## Fim da geracao da matriz tridiagonal A com os coeficientes
+        ## dos vetores
+
+
     elif(opcao == 2): ## CASO 2: usuario informa a matriz ##
         ## Usuario define tamanho n da matriz ##
         ciclica = int(input("A matriz tridiagonal a ser digitada é ciclica? 0- NAO | 1- SIM    "))
@@ -95,7 +109,30 @@ def main():
         for l in range(0, n):
             print("d[", l+1, "]:  ", end='', sep ='')
             d[l] = int(input())
-        
+
+        ## Gera a matriz tridiagonal A completa com os coeficientes, 
+        ## para usar o algoritmo do comeco do PDF
+        A = np.zeros((n,n))
+
+        if (ciclica == 0): ## alterar aqui neste caso
+            #A[0][n-1] = diagA[0]
+            #A[n-1][0] = diagC[n-1]
+            for i in range (0,n-1):
+                A[i][i]   = diagB[i]
+                A[i+1][i] = diagA[i+1]
+                A[i][i+1] = diagC[i]
+            A[n-1][n-1] = diagB[n-1]
+        elif(ciclica == 1):
+            A[0][n-1] = diagA[0]
+            A[n-1][0] = diagC[n-1]
+            for i in range (0,n-1):
+                A[i][i]   = diagB[i]
+                A[i+1][i] = diagA[i+1]
+                A[i][i+1] = diagC[i]
+            A[n-1][n-1] = diagB[n-1]
+
+        ## Fim da geracao da matriz tridiagonal A com os coeficientes
+        ## dos vetores
 
     else:#caso em que o usuario escolhe que o programa gere a matriz e o resultado
         n = int(input("Qual o tamanho desejado para a matriz quadrada? "))
@@ -108,6 +145,18 @@ def main():
 
         #gerando matriz com coeficientes baseados em formulas dadas pelo enunciado
         gerarMatrizTridiagonal(n,diagA,diagB,diagC,d)
+
+        ## Gera a matriz tridiagonal cíclica A completa com os coeficientes, 
+        ## para usar o algoritmo do comeco do PDF
+        A = np.zeros((n,n))
+        A[0][n-1] = diagA[0]
+        A[n-1][0] = diagC[n-1]
+        for i in range (0,n-1):
+            A[i][i]   = diagB[i]
+            A[i+1][i] = diagA[i+1]
+            A[i][i+1] = diagC[i]
+        A[n-1][n-1] = diagB[n-1]
+        ## Fim da geracao de A ##
 
        
     #fazendo as contas da decomposicao
@@ -133,6 +182,10 @@ def main():
     print("Aqui está o resultado final:")
     printBonito('       x', resolveTridiagonalCiclica(n, diagA, diagB, diagC, d))
 
+    print("\nObserve, por fim, que o resultado obtido acima é compatível com o resultado do algoritmo mais básico, abaixo, que não possui nenhuma otimizacao levando em conta as casas iguais a zero: ")
+    ## Calcula a resposta e printa para o usuario ##
+    resposta = resolveMatrizQualquer(n,A,d)
+    printBonito("x",resposta)
 
 
 def printBonito(letra, vetor):
@@ -151,6 +204,41 @@ def decomposicaoLU(n, diagA, diagB, diagC,vetU,vetL):
     for i in range (1,n):
         vetL[i] = (diagA[i])/vetU[i-1]
         vetU[i] = diagB[i] - vetL[i]*diagC[i-1]
+
+
+
+#funcao que fiz inicialmente. retorna o vetor com respostas
+def resolveMatrizQualquer(n,A,b):
+    # n: dimensão da matriz quadrada
+    # A: matriz quadrada com os coeficientes do sistema
+    # b: vetor com os coeficientes
+
+    L = np.zeros((n,n))
+    U = np.zeros((n,n))
+
+    y = np.zeros((n,1))
+    x = np.zeros((n,1))
+
+    for i in range(0,n):
+        U[i, i:n] = A[i, i:n] - np.dot(L[i, 0:i], U[0:i, i:n])
+        L[i:n, i] = (A[i:n, i] - np.dot(L[i:n, 0:i],U[0:i, i])) / U[i,i]
+
+    #print("Verifique sua matriz A:")
+    #print(A)
+    #print(L)
+    #print(U)
+
+    # Bloco que encontra as raizes de y
+    for i in range(0,n):
+        y[i] = -1*(np.dot(L[i, 0:i], y[0:i])) + b[i]
+    #print(y)
+
+    # Bloco que encontra as raizes de x (que sao finalmente desejadas)
+    for i in range(n-1,-1,-1): #2,1,0
+        x[i] = (-1*(np.dot(U[i, i+1:n], x[i+1:n])) + y[i]) / U[i][i] ###Aparentemente ele retorna um valor OK, mas com muitas casas de precisao. tem //, mas ele arredonda pra inteiro
+    #print(x)
+
+    return x
 
 
 
