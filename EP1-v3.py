@@ -182,7 +182,7 @@ def main():
     print("Aqui está o resultado final:")
     printBonito('       x', resolveTridiagonalCiclica(n, diagA, diagB, diagC, d))
 
-    print("\nObserve, por fim, que o resultado obtido acima é compatível com o resultado do algoritmo mais básico, abaixo, que não possui nenhuma otimizacao levando em conta as casas iguais a zero: ")
+    print("\nObserve, por fim, que o resultado obtido acima é compatível com o resultado abaixo do algoritmo mais básico, que não possui nenhuma otimizacao levando em conta as casas iguais a zero: ")
     ## Calcula a resposta e printa para o usuario ##
     resposta = resolveMatrizQualquer(n,A,d)
     printBonito("x",resposta)
