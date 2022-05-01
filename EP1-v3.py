@@ -7,7 +7,7 @@
 
 import numpy as np
 
-
+## Funcao principal ##
 def main():
     opcao = int(input("1- Usar valores pre-cadastrados de matriz tridiagonal \n2- Inserir seus proprios valores \n3- Gerar coeficientes tridiagonais\n"))
     if(opcao == 1):## CASO 1: usuario escolhe a matriz pre-cadastrada ##
@@ -150,34 +150,34 @@ def main():
     decomposicaoLU(n, diagA, diagB, diagC, vetU, vetL)
 
     print("Aqui estão as diagonais da matriz A:")
-    printBonito('       c', diagC)
-    printBonito('       b', diagB)
-    printBonito('       a', diagA)
+    imprimeVetor('       c', diagC)
+    imprimeVetor('       b', diagB)
+    imprimeVetor('       a', diagA)
     print()
 
     print("Aqui está o resultado do sistema linear:")
-    printBonito('       d', d)
+    imprimeVetor('       d', d)
     print()
 
     print("Aqui estão os vetores resultados da decomposição LU:")
-    printBonito('       L', vetL)
-    printBonito('       U', vetU)
+    imprimeVetor('       L', vetL)
+    imprimeVetor('       U', vetU)
     print()
 
     print("Aqui está o resultado final:")
-    printBonito('       x', resolveTridiagonalCiclica(n, diagA, diagB, diagC, d))
+    imprimeVetor('       x', resolveTridiagonalCiclica(n, diagA, diagB, diagC, d))
 
     print("\nObserve, por fim, que o resultado obtido acima é compatível com o resultado abaixo do algoritmo mais básico, que não possui nenhuma otimizacao levando em conta as casas iguais a zero: ")
 
     ## Calcula a resposta e printa para o usuario, usando ##
-    ## o algoritmo nao otimizado, que usa matrizes        ##                                                  ##
+    ## o algoritmo nao otimizado, que usa matrizes        ##
     resposta = resolveMatrizQualquer(n,A,d)
-    printBonito("x",resposta)
+    imprimeVetor("x",resposta)
 
 
 
 ## Funcao auxiliar para imprimir vetores deste exercicio-programa ##
-def printBonito(letra, vetor):
+def imprimeVetor(letra, vetor):
     print(letra, " = [", end='', sep='')
     for i in range(0, len(vetor)):
         print("%.8f" % vetor[i], end='')
