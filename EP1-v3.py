@@ -175,6 +175,8 @@ def main():
     printBonito("x",resposta)
 
 
+
+## Funcao auxiliar para imprimir vetores deste exercicio-programa ##
 def printBonito(letra, vetor):
     print(letra, " = [", end='', sep='')
     for i in range(0, len(vetor)):
@@ -182,6 +184,7 @@ def printBonito(letra, vetor):
         if (i < len(vetor)-1):
             print("; ", end='')
     print("]")
+
 
 
 ## Funcao que retorna os vetores L e U de matrizes tridiagonais ##
@@ -219,6 +222,7 @@ def resolveMatrizQualquer(n,A,b):
     return x
 
 
+
 ## Funcao que resolve uma matriz tridiagonal usando vetores com otimizacao ##
 def resolveTridiagonal(n, diagA, diagB, diagC, d):
     ## Geracao dos vetores L e U do sistema ##
@@ -242,6 +246,7 @@ def resolveTridiagonal(n, diagA, diagB, diagC, d):
     
     ## Retorna o vetor x ##
     return vetX
+
 
 
 ## Funcao que resolve uma matriz tridiagonal ciclica usando vetores com otimizacao ##
