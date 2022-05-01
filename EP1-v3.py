@@ -177,8 +177,8 @@ def main():
 
 
 ## Funcao auxiliar para imprimir vetores deste exercicio-programa ##
-def imprimeVetor(letra, vetor):
-    print(letra, " = [", end='', sep='')
+def imprimeVetor(nomeVetor, vetor):
+    print(nomeVetor, " = [", end='', sep='')
     for i in range(0, len(vetor)):
         print("%.8f" % vetor[i], end='')
         if (i < len(vetor)-1):
